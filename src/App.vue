@@ -16,13 +16,9 @@
 
 <script>
 import moment from "moment";
-import HelloWorld from "./components/HelloWorld";
 
 export default {
   name: "App",
-  components: {
-    HelloWorld
-  },
   data() {
     return {
       covidData: [["Day", "Positive Infections", "Deaths"]],
