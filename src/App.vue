@@ -3,7 +3,25 @@
 
 <template>
   <div id="app">
-    <h1>COVID-19 Chart</h1>
+    <h1>
+      COVID-19 vs.
+      <a href="https://www.ncbi.nlm.nih.gov/pubmed/21342903">H1N1</a>
+    </h1>
+    <fieldset>
+      <legend>Select Chart:</legend>
+      <label>
+        COVID-19
+        <input type="radio" name="covid19" value="covid19" v-model="selectedRadio" checked>
+      </label>
+      <label>
+        H1N1
+        <input type="radio" name="h1n1" value="h1n1" v-model="selectedRadio">
+      </label>
+      <label>
+        COVID-19 vs H1N1
+        <input type="radio" name="both" value="both" v-model="selectedRadio">
+      </label>
+    </fieldset>
     <GChart
       class="chart"
       :settings="{ packages: ['corechart', 'line'] }"
@@ -21,7 +39,15 @@ export default {
   name: "App",
   data() {
     return {
-      covidData: [["Day", "Positive Infections", "Deaths"]],
+      covidData: [
+        [
+          "Day",
+          "COVID Infections",
+          "COVID Deaths",
+          "H1N1 Infections",
+          "H1N1 Deaths"
+        ]
+      ],
       chartOptions: {
         chart: {
           title: "USA COVID-19 Infections / Deaths"
@@ -31,7 +57,8 @@ export default {
         hAxis: {
           format: "MMM d"
         }
-      }
+      },
+      selectedRadio: "covid19"
     };
   },
   created() {
@@ -43,10 +70,25 @@ export default {
       const data = await response.json();
 
       const rows = data.map(day => {
-        return [moment(day.date, "YYYYMMDD").toDate(), day.positive, day.death];
+        return [
+          moment(day.date, "YYYYMMDD").toDate(),
+          day.positive,
+          day.death,
+          60800000,
+          12000
+        ];
       });
 
-      this.covidData = [["Day", "Positive Infections", "Deaths"], ...rows];
+      this.covidData = [
+        [
+          "Day",
+          "Positive Infections",
+          "Deaths",
+          "H1N1 Infections",
+          "H1N1 Deaths"
+        ],
+        ...rows
+      ];
       console.log({ cdata: this.covidData });
     }
   }
@@ -67,4 +109,17 @@ export default {
   width: 100%;
   min-height: 450px;
 }
+
+label {
+  display: inline-block;
+}
+
+label:not(:first-child) {
+  margin-left: 1rem;
+}
+
+/* fieldset {
+  display: flex;
+  flex-direction: column;
+} */
 </style>
