@@ -86,7 +86,7 @@ export default {
 				return [
 					moment(day.date, 'YYYYMMDD').toDate(),
 					day.positive,
-					`<ul class="google-visualization-tooltip-item-list"><li class="google-visualization-tooltip-item">COVID Deaths: <strong>${day.positive}</strong></li><ul>`,
+					`<ul class="google-visualization-tooltip-item-list"><li class="google-visualization-tooltip-item">COVID Infections: <strong>${day.positive}</strong></li><ul>`,
 					day.death,
 					`<ul class="google-visualization-tooltip-item-list"><li class="google-visualization-tooltip-item">COVID Deaths: <strong>${
 						day.death
